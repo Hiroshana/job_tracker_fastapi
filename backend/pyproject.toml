@@ -1,7 +1,9 @@
 [project]
-name = "job Tracker - backend"
+name = "job-tracker-backend"
 version = "0.1.0"
 description = "Track my job applications using FastAPI "
 readme = "README.md"
 requires-python = ">=3.14"
-dependencies = []
+dependencies = [
+    "fastapi[standard]>=0.165.0",
+]
