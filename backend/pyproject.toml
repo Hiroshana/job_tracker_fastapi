@@ -5,7 +5,9 @@ description = "Track my job applications using FastAPI "
 readme = "README.md"
 requires-python = ">=3.14"
 dependencies = [
+    "asyncpg>=0.32.0",
     "fastapi[standard]>=0.165.0",
+    "sqlalchemy[asyncio]>=2.1.9",
 ]
 
 [tool.fastapi]
