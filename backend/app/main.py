@@ -6,11 +6,15 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import text
 from app.db.session import get_db
 
+from app.api import auth
+
 app = FastAPI(
     title=settings.app_name,
     description="This is a developed by FastAPI.",
     version="1.0.0",
 )
+
+app.include_router(auth.router)
 
 
 @app.get("/")
