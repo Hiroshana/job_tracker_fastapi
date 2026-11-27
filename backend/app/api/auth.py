@@ -15,12 +15,23 @@ async def signup(user_in: UserCreate, db: Annotated[AsyncSession, Depends(get_db
     """
     Create a new user in the database.
     """
+
+    email = user_in.email.lower()  # Normalize the email to lowercase for consistency
+
+    # Look for an existing user with the same email
+    existing_user = await db.execute(User.__table__.select().where(User.email == email))
+    if existing_user.scalar_one_or_none():
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="A user with this email already exists.",
+        )
+
     # Hash the password
     hashed = await run_in_threadpool(hash_password, user_in.password)
 
     # Create a new user instance
     new_user = User(
-        email=user_in.email,
+        email=email,
         hashed_password=hashed,
         full_name=user_in.full_name,
     )
